@@ -9,7 +9,7 @@ const TODAY_ISO = isoOf(now.getFullYear(), now.getMonth(), now.getDate());
 const fmtLong = isoStr => {
   const [y, m, d] = isoStr.split("-").map(Number);
   return new Date(y, m - 1, d).toLocaleDateString("en-US",
-    { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+    { weekday: "long", month: "short", day: "numeric", year: "numeric" });
 };
 
 const state = { date: TODAY_ISO, category: null };
@@ -485,7 +485,7 @@ customElements.define("date-calendar", class extends HTMLElement {
 
     s.querySelector("h2").textContent =
       new Date(this.view.y, this.view.m, 1)
-        .toLocaleDateString("en-US", { month: "long", year: "numeric" });
+        .toLocaleDateString("en-US", { month: "short", year: "numeric" });
 
     /* days offered for selection come only from the month's file */
     const dayLinks = monthLinks.get(key) || new Map();
