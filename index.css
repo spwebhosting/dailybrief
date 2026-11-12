@@ -1,0 +1,145 @@
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --border: #e4e7ec;
+  --text: #1a202c;
+  --text-muted: #667085;
+  --text-faint: #98a2b3;
+  --accent: #2451b3;
+  --accent-soft: #eaf0fc;
+  --accent-softer: #f4f7fd;
+  --tag-council: #2451b3;
+  --tag-council-bg: #eaf0fc;
+  --tag-school: #0d7a5f;
+  --tag-school-bg: #e6f4ef;
+  --tag-state: #7a3d9c;
+  --tag-state-bg: #f3ecf9;
+  --radius: 10px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.55;
+  /* app-style layout: the page itself never scrolls */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ---------- Header ---------- */
+header {
+  flex: 0 0 auto;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-mark {
+  width: 34px; height: 34px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700; font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  letter-spacing: -0.5px;
+}
+.brand h1 { font-size: 17px; font-weight: 650; }
+.brand .subtitle { font-size: 12.5px; color: var(--text-muted); font-weight: 400; }
+.header-meta { font-size: 13px; color: var(--text-muted); text-align: center; }
+.header-meta strong { color: var(--text); font-weight: 600; }
+.mobile-header-date { display: none; }
+
+/* ---------- Layout ---------- */
+.layout {
+  flex: 1 1 auto;
+  min-height: 0;          /* lets children scroll instead of stretching */
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);  /* row is capped at the available height */
+  gap: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 32px;
+  overflow: hidden;
+  width: 100%;
+}
+aside {
+  min-height: 0;
+  overflow-y: auto;       /* side column scrolls independently if it overflows */
+}
+
+/* Panels live in light DOM; their inner grids render in shadow roots */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.calendar-panel { padding: 16px; }
+
+/* compact date bar + category dropdown: mobile-only companions to the calendar */
+.date-nav-panel { display: none; padding: 10px 12px; }
+.cat-select-panel { display: none; padding: 10px 12px; }
+
+/* ---------- Right column: feed ---------- */
+section.feed {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+/* the feed content area — cards are injected here by index.js */
+.feed-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 2px 16px;
+}
+blurb-card { display: block; }
+/* must live in the outer document: outer rules beat :host rules,
+   so a shadow-only :host([hidden]) rule would be ignored here */
+blurb-card[hidden] { display: none; }
+
+.empty-state {
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.feed-end {
+  text-align: center;
+  color: var(--text-faint);
+  font-size: 12.5px;
+  padding: 10px 0 4px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 760px) {
+  /* back to normal document flow / page scrolling */
+  html, body { height: auto; overflow: visible; }
+  .layout { grid-template-columns: 1fr; overflow: visible; padding: 16px 16px 48px; }
+  section.feed { display: block; }
+  .feed-scroll { overflow: visible; padding-bottom: 48px; }
+  aside { overflow: visible; }
+  header { padding: 12px 16px; }
+  .header-meta { text-align: right; }
+  .desktop-date-nav { display: none; }
+  .mobile-header-date { display: block; }
+  /* swap the calendar for the compact date bar + category dropdown */
+  .calendar-panel { display: none; }
+  .date-nav-panel { display: block; }
+  .cat-select-panel { display: block; margin-top: 12px; }
+}

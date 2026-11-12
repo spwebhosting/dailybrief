@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kelvin's Daily Brief</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="index.css?v=11">
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-mark">DB</div>
+    <div>
+      <h1>Kelvin's Daily Brief</h1>
+      <div class="subtitle">AI-Generated Summaries</div>
+    </div>
+  </div>
+  <div class="header-meta">
+    <date-nav class="desktop-date-nav" desktop></date-nav>
+    <strong id="header-date" class="mobile-header-date"></strong>
+    <span id="header-count"></span>
+  </div>
+</header>
+
+<main class="layout">
+
+  <!-- ============ LEFT: calendar (desktop) / date bar (mobile) ============ -->
+  <aside>
+    <div class="panel calendar-panel">
+      <date-calendar></date-calendar>
+    </div>
+    <div class="panel date-nav-panel">
+      <date-nav></date-nav>
+    </div>
+    <div class="panel cat-select-panel">
+      <category-select></category-select>
+    </div>
+  </aside>
+
+  <!-- ============ RIGHT: blurb feed (custom elements, fed from data/*.json) ============ -->
+  <section class="feed">
+    <div class="feed-scroll">
+      <div class="empty-state" id="empty-state" hidden></div>
+      <div class="feed-end" id="feed-end" hidden></div>
+    </div>
+  </section>
+
+</main>
+
+<script type="module" src="index.js?v=18"></script>
+</body>
+</html>
